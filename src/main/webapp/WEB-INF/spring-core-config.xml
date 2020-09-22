@@ -8,11 +8,40 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd ">
 
-  <context:component-scan base-package="com.przedwojski.purespring" />
+  <context:component-scan base-package="com.przedwojski.purespring"/>
 
   <bean id="manchesterUnited" class="com.przedwojski.purespring.FootballClub">
-    <property name="name" value="United"/>
+    <property name="name" value="Manchester United"/>
     <property name="position" value="1"/>
+    <property name="description" value=""/>
+  </bean>
+
+  <bean id="arsenal" class="com.przedwojski.purespring.FootballClub" depends-on="manchesterUnited">
+    <property name="name" value="Arsenal London"/>
+    <property name="position" value="19"/>
+  </bean>
+
+  <!-- Not created because it's not needed right away for the FootballService - lazy -->
+  <bean id="liverpool" class="com.przedwojski.purespring.FootballClub" lazy-init="true">
+    <property name="name" value="Liverpool"/>
+    <property name="position" value="18"/>
+  </bean>
+
+  <bean id="footballService" class="com.przedwojski.purespring.FootballService" init-method="show">
+    <property name="clubs">
+      <list>
+        <ref bean="manchesterUnited"/>
+        <ref bean="arsenal"/>
+        <!-- Inner bean -->
+        <bean class="com.przedwojski.purespring.FootballClub">
+          <property name="name" value="Manchester City"/>
+          <property name="position" value="20"/>
+          <property name="description">
+            <null/>
+          </property>
+        </bean>
+      </list>
+    </property>
   </bean>
 
 </beans>

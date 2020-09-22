@@ -13,11 +13,11 @@ public class WelcomeController {
 
 //    private final Logger logger = LoggerFactory.getLogger(WelcomeController.class);
 //    private final HelloWorldService helloWorldService;
-    private final FootballClub footballClub;
+    private final FootballClub manchesterUnited; // matches by bean id
 
     @Autowired
-    public WelcomeController(FootballClub footballClub) {
-        this.footballClub = footballClub;
+    public WelcomeController(FootballClub manchesterUnited) {
+        this.manchesterUnited = manchesterUnited;
     }
 //    @Autowired
 //    public WelcomeController(HelloWorldService helloWorldService) {
@@ -34,7 +34,7 @@ public class WelcomeController {
 //        model.put("msg", helloWorldService.getDesc());
 
 //        return "Hello, Spring!@";
-        return footballClub.getName();
+        return manchesterUnited.getName();
     }
 
 //    @RequestMapping(value = "/hello/{name:.+}", method = RequestMethod.GET)
