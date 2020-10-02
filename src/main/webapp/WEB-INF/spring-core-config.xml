@@ -44,4 +44,27 @@
     </property>
   </bean>
 
+  <!-- autowire="byType": "Could not autowire. There is more than one bean of 'List<FootballClub>' type. Beans: manchesterUnited,FootballClub,arsenal,liverpool. Properties: 'clubs'"  -->
+<!--  <bean id="autowiredFootballService" class="com.przedwojski.purespring.FootballService" init-method="show" autowire="byType">-->
+<!--  </bean>-->
+
+  <bean id="smallBall" class="com.przedwojski.purespring.Ball" autowire-candidate="false">
+    <constructor-arg value="S"/>
+  </bean>
+
+  <bean id="mediumBall" class="com.przedwojski.purespring.Ball">
+    <constructor-arg value="M"/>
+  </bean>
+
+  <bean id="bigBall" class="com.przedwojski.purespring.Ball" primary="true">
+    <constructor-arg value="L"/>
+  </bean>
+
+
+<!--  <bean id="match" class="com.przedwojski.purespring.Match" autowire="byType"/>-->
+<!--  Huh, it's not even necessary to specify the: autowire="byType" as above - it works the same without it -->
+<!--  Ok, it worked by default with the "byName" setting - when I changed the id of the bean from 'ball' to 'bigBall' it stopped working if there was also 'smallBall' -->
+<!--  But if there was only 'bigBall' it continued to work fine - probably it fell back to the "byType" option -->
+  <bean id="match" class="com.przedwojski.purespring.Match" autowire="byType"/>
+
 </beans>
