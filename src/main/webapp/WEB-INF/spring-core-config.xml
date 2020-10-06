@@ -27,6 +27,11 @@
     <property name="position" value="18"/>
   </bean>
 
+  <bean id="leicester" class="com.przedwojski.purespring.FootballClub" scope="singleton">
+    <property name="name" value="Licester"/>
+    <property name="position" value="2"/>
+  </bean>
+
   <bean id="footballService" class="com.przedwojski.purespring.FootballService" init-method="show">
     <property name="clubs">
       <list>
@@ -65,6 +70,19 @@
 <!--  Huh, it's not even necessary to specify the: autowire="byType" as above - it works the same without it -->
 <!--  Ok, it worked by default with the "byName" setting - when I changed the id of the bean from 'ball' to 'bigBall' it stopped working if there was also 'smallBall' -->
 <!--  But if there was only 'bigBall' it continued to work fine - probably it fell back to the "byType" option -->
-  <bean id="match" class="com.przedwojski.purespring.Match" autowire="byType"/>
+<!--  <bean id="match" class="com.przedwojski.purespring.Match" autowire="byType"/>-->
 
+
+<!--  Changing the match to be a prototype -->
+<!--  As expected, match bean is not created - because it's a prototype and it's not requested anywhere. -->
+  <bean id="match" class="com.przedwojski.purespring.Match" autowire="byType" scope="prototype"/>
+
+  <bean id="matchDay" class="com.przedwojski.purespring.MatchDay">
+    <property name="matches">
+      <list>
+        <ref bean="match"/> <!-- Now match prototype should be instantiated -->
+        <ref bean="match"/> <!-- And this should create a second instance of the prototype -->
+      </list>
+    </property>
+  </bean>
 </beans>

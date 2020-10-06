@@ -11,7 +11,8 @@ class Match {
     @Override
     public String toString() {
         return "Match{" +
-            "ball=" + ball +
+            "hash=" + this.hashCode() +
+            ", ball=" + ball +
             '}';
     }
 }
