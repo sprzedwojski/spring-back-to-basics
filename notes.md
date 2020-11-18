@@ -17,4 +17,9 @@ Since Spring 3.0 there's also Thread scope (but not registered by default).
 
 As a rule, you should use the prototype scope for all stateful beans and the singleton scope for stateless beans.
 
-In contrast to the other scopes, Spring does not manage the complete lifecycle of a prototype bean. The container instantiates, configures, and otherwise assembles a prototype object and hands it to the client, with no further record of that prototype instance. 
+In contrast to the other scopes, Spring does not manage the complete lifecycle of a prototype bean. The container instantiates, configures, and otherwise assembles a prototype object and hands it to the client, with no further record of that prototype instance.
+
+---
+
+The request, session, application, and websocket scopes are available only if you use a web-aware 
+Spring `ApplicationContext` implementation (such as `XmlWebApplicationContext`). 
