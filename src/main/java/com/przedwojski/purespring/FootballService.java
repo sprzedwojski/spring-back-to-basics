@@ -14,7 +14,7 @@ class FootballService {
     }
 
     void show() throws InterruptedException {
-        Thread.sleep(2000);
+//        Thread.sleep(2000);
         System.out.println(this);
         clubs.forEach(System.out::println);
     }

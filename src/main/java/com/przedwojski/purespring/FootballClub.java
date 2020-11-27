@@ -20,7 +20,7 @@ public class FootballClub {
     }
 
     public void setName(String name) {
-        System.out.println("Created: " + name);
+//        System.out.println("Created: " + name);
         this.name = name;
     }
 

@@ -7,7 +7,7 @@ class MatchDay {
     private List<Match> matches;
 
     public MatchDay() {
-        System.out.println(this);
+//        System.out.println(this);
     }
 
     public List<Match> getMatches() {

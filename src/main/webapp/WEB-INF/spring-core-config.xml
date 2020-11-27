@@ -32,7 +32,8 @@
     <property name="position" value="2"/>
   </bean>
 
-  <bean id="footballService" class="com.przedwojski.purespring.FootballService" init-method="show">
+<!--  <bean id="footballService" class="com.przedwojski.purespring.FootballService" init-method="show">-->
+  <bean id="footballService" class="com.przedwojski.purespring.FootballService">
     <property name="clubs">
       <list>
         <ref bean="manchesterUnited"/>
@@ -85,4 +86,7 @@
       </list>
     </property>
   </bean>
+
+  <bean class="com.przedwojski.purespring.InstantiationTracingBeanPostProcessor"/>
+
 </beans>

@@ -5,7 +5,7 @@ class Ball {
 
     public Ball(String size) {
         this.size = size;
-        System.out.println(this);
+//        System.out.println(this);
     }
 
     String getSize() {

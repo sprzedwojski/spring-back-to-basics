@@ -5,7 +5,7 @@ class Match {
 
     public Match(Ball ball) {
         this.ball = ball;
-        System.out.println(this);
+//        System.out.println(this);
     }
 
     @Override
