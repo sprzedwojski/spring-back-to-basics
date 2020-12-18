@@ -53,3 +53,36 @@ A bean definition can contain a lot of configuration information, including cons
 
 The BeanPostProcessor interface defines callback methods that you can implement to provide your own (or override the container’s default) instantiation logic, dependency resolution logic, and so forth.
 
+## 1.8.2 `BeanFactoryPostProcessor`
+
+- operates on bean configuration metadata
+- you can change configuration metadata before the container instantiates any other beans
+- you can have multiple `BeanFactoryPostProcessor`s and control the order in which they run with the `order` property
+
+## 1.8.3. Customizing Instantiation Logic with a FactoryBean
+You can implement the org.springframework.beans.factory.FactoryBean interface for objects that are themselves factories.
+The FactoryBean interface is a point of pluggability into the Spring IoC container’s instantiation logic. 
+
+# 1.9. Annotation-based Container Configuration
+- bytecode metadata for wiring up components instead of angle-bracket declarations
+- annotations on the relevant class, method, or field declaration
+
+Annotation injection is performed before XML injection. 
+Thus, the XML configuration overrides the annotations for properties wired through both approaches.
+
+> <context:annotation-config/> only looks for annotations on beans in the same application context in which it is defined. This means that, if you put <context:annotation-config/> in a WebApplicationContext for a DispatcherServlet, it only checks for @Autowired beans in your controllers, and not your services.
+
+## 1.9.1. @Required
+
+- The @Required annotation applies to bean property setter methods
+- This annotation indicates that the affected bean property must be populated at configuration time, 
+through an explicit property value in a bean definition or through autowiring. 
+The container throws an exception if the affected bean property has not been populated.
+	
+The @Required annotation is formally deprecated as of Spring Framework 5.1, in favor of using constructor 
+injection for required settings (or a custom implementation of InitializingBean.afterPropertiesSet() along with 
+bean property setter methods).
+
+## 1.9.2. Using @Autowired
+
+
