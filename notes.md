@@ -70,7 +70,9 @@ The FactoryBean interface is a point of pluggability into the Spring IoC contain
 Annotation injection is performed before XML injection. 
 Thus, the XML configuration overrides the annotations for properties wired through both approaches.
 
-> <context:annotation-config/> only looks for annotations on beans in the same application context in which it is defined. This means that, if you put <context:annotation-config/> in a WebApplicationContext for a DispatcherServlet, it only checks for @Autowired beans in your controllers, and not your services.
+> <context:annotation-config/> only looks for annotations on beans in the same application context in which it is defined. 
+>This means that, if you put <context:annotation-config/> in a WebApplicationContext for a DispatcherServlet, it only 
+>checks for @Autowired beans in your controllers, and not your services.
 
 ## 1.9.1. @Required
 
@@ -85,4 +87,42 @@ bean property setter methods).
 
 ## 1.9.2. Using @Autowired
 
+> JSR 330’s @Inject annotation can be used in place of Spring’s @Autowired annotation
+
+	
+Only one constructor of any given bean class may declare @Autowired with the required attribute set to true, 
+indicating the constructor to autowire when used as a Spring bean. 
+
+As a consequence, if the required attribute is left at its default value true, only a single constructor may be annotated with @Autowired. 
+
+If multiple constructors declare the annotation, they will all have to declare required=false in order to be considered 
+as candidates for autowiring (analogous to autowire=constructor in XML). The constructor with the greatest number of 
+dependencies that can be satisfied by matching beans in the Spring container will be chosen. 
+
+If none of the candidates can be satisfied, then a primary/default constructor (if present) will be used. 
+
+Similarly, if a class declares multiple constructors but none of them is annotated with @Autowired, then a 
+primary/default constructor (if present) will be used. 
+
+If a class only declares a single constructor to begin with, it will always be used, even if not annotated. 
+Note that an annotated constructor does not have to be public.
+
+The required attribute of @Autowired is recommended over the deprecated @Required annotation on setter methods.
+
+Alternatively, you can express the non-required nature of a particular dependency through Java 8’s java.util.Optional
+
+```
+public class SimpleMovieLister {
+
+    @Autowired
+    public void setMovieFinder(Optional<MovieFinder> movieFinder) {
+        ...
+    }
+}
+```
+
+As of Spring Framework 5.0, you can also use a @Nullable annotation.
+
+You can also use @Autowired for interfaces that are well-known resolvable dependencies: BeanFactory, ApplicationContext, 
+Environment, ResourceLoader, ApplicationEventPublisher, and MessageSource.
 
