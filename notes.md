@@ -126,3 +126,94 @@ As of Spring Framework 5.0, you can also use a @Nullable annotation.
 You can also use @Autowired for interfaces that are well-known resolvable dependencies: BeanFactory, ApplicationContext, 
 Environment, ResourceLoader, ApplicationEventPublisher, and MessageSource.
 
+## 1.9.3. Fine-tuning Annotation-based Autowiring with @Primary
+
+`@Primary` – a particular bean will be given preference when multiple beans are candidates to be 
+autowired to a single-valued dependency.
+
+## 1.9.4. Fine-tuning Annotation-based Autowiring with Qualifiers
+
+You can associate qualifier values with specific arguments, narrowing the set of type matches so that a 
+specific bean is chosen for each argument.
+
+```
+    @Autowired
+    @Qualifier("main")
+    private MovieCatalog movieCatalog;
+```
+
+## 1.9.5. Using Generics as Autowiring Qualifiers
+
+In addition to the @Qualifier annotation, you can use Java generic types as an implicit form of qualification.
+
+```
+@Autowired
+private Store<String> s1; // <String> qualifier, injects the stringStore bean
+
+@Autowired
+private Store<Integer> s2; // <Integer> qualifier, injects the integerStore bean
+```
+
+## 1.9.7. Injection with `@Resource` [#](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-resource-annotation)
+
+Spring also supports injection by using the JSR-250 `@Resource` annotation (javax.annotation.Resource) on fields or 
+bean property setter methods.
+
+```
+    @Resource(name="myMovieFinder") 
+    public void setMovieFinder(MovieFinder movieFinder) {
+        this.movieFinder = movieFinder;
+    }
+```
+
+## 1.9.8. Using `@Value`
+
+`@Value` is typically used to inject externalized properties:
+
+```java
+@Component
+public class MovieRecommender {
+
+    private final String catalog;
+
+    public MovieRecommender(@Value("${catalog.name:defaultCatalog}") String catalog) {
+        this.catalog = catalog;
+    }
+}
+```
+
+(`:defaultCatalog` is the optional default value)
+
+With the following configuration:
+
+```java
+@Configuration
+@PropertySource("classpath:application.properties")
+public class AppConfig { }
+```
+
+And the following `application.properties` file:
+```
+catalog.name=MovieCatalog
+```
+
+Spring Boot configures by default a `PropertySourcesPlaceholderConfigurer` bean that will get properties 
+from `application.properties` and `application.yml` files.
+
+## 1.9.9. Using @PostConstruct and @PreDestroy
+
+```java
+public class CachingMovieLister {
+
+    @PostConstruct
+    public void populateMovieCache() {
+        // populates the movie cache upon initialization...
+    }
+
+    @PreDestroy
+    public void clearMovieCache() {
+        // clears the movie cache upon destruction...
+    }
+}
+```
+

@@ -2,6 +2,7 @@ package com.przedwojski.purespring;
 
 import java.util.Arrays;
 import java.util.Map;
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,7 +14,8 @@ public class League {
     // You can also instruct Spring to provide all beans of a particular type from the ApplicationContext by adding the
     // @Autowired annotation to a field or method that expects an array of that type.
     // The same applies for typed collections.
-    @Inject
+//    @Inject
+    @Resource
     private FootballClub[] allClubs;
 
     // Even typed Map instances can be autowired as long as the expected key type is String.
@@ -21,11 +23,12 @@ public class League {
     @Inject
     private Map<String, FootballClub> clubsMap;
 
-    @Inject // This or @Autowired no longer necessary as of Spring 4.3 if there's only one constructor
+//    @Inject // This or @Autowired no longer necessary as of Spring 4.3 if there's only one constructor
     public League(FootballClub manchesterUnited) {
         this.footballClub = manchesterUnited;
     }
 
+    @Inject
     public League(FootballClub manchesterUnited, FootballClub leicester) {
         this.footballClub = manchesterUnited;
         System.out.println(leicester);
