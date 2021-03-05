@@ -217,3 +217,39 @@ public class CachingMovieLister {
 }
 ```
 
+## 1.10. Classpath Scanning and Managed Components
+
+This section describes an option for implicitly detecting the candidate components by scanning the classpath. 
+Candidate components are classes that match against a filter criteria and have a corresponding bean definition 
+registered with the container. This removes the need to use XML to perform bean registration. Instead, you can use 
+annotations (for example, @Component), AspectJ type expressions, or your own custom filter criteria to select which 
+classes have bean definitions registered with the container.
+
+### 1.10.1. @Component and Further Stereotype Annotations
+
+The `@Repository` annotation is a marker for any class that fulfills the role or stereotype of a repository 
+(also known as Data Access Object or DAO).
+
+`@Component` is a generic stereotype for any Spring-managed component.
+There are more specialized ones: `@Component`, `@Service`, and `@Controller`. You can use `@Component` everywhere,
+but using the dedicated ones makes the beans better targets for pointcuts in AOP, convey the type of the bean better 
+to the reader and can provide some unique features, e.g. automatic translation of exceptions in the case of `@Repository`.
+
+### 1.10.2. Using Meta-annotations and Composed Annotations
+
+Meta-annotation: can be applied to another annotation. Example:
+
+```
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Component 
+public @interface Service {
+
+    // ...
+}
+```
+
+You can also combine meta-annotations to create “composed annotations”. For example, the `@RestController` 
+annotation from Spring MVC is composed of `@Controller` and `@ResponseBody`.
+
