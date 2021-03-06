@@ -1,4 +1,4 @@
-package com.przedwojski.purespring;
+package com.przedwojski.purespring.football;
 
 import java.util.Arrays;
 import java.util.Map;

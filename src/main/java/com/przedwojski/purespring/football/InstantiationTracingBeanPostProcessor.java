@@ -1,4 +1,4 @@
-package com.przedwojski.purespring;
+package com.przedwojski.purespring.football;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;

@@ -8,38 +8,38 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd ">
 
-  <context:component-scan base-package="com.przedwojski.purespring"/>
+  <context:component-scan base-package="com.przedwojski.purespring.football"/>
 
-  <bean id="manchesterUnited" class="com.przedwojski.purespring.FootballClub">
+  <bean id="manchesterUnited" class="com.przedwojski.purespring.football.FootballClub">
     <property name="name" value="Manchester United"/>
     <property name="position" value="1"/>
     <property name="description" value=""/>
   </bean>
 
-  <bean id="arsenal" class="com.przedwojski.purespring.FootballClub" depends-on="manchesterUnited">
+  <bean id="arsenal" class="com.przedwojski.purespring.football.FootballClub" depends-on="manchesterUnited">
     <property name="name" value="Arsenal London"/>
     <property name="position" value="19"/>
   </bean>
 
   <!-- Not created because it's not needed right away for the FootballService - lazy -->
-  <bean id="liverpool" class="com.przedwojski.purespring.FootballClub" lazy-init="true">
+  <bean id="liverpool" class="com.przedwojski.purespring.football.FootballClub" lazy-init="true">
     <property name="name" value="Liverpool"/>
     <property name="position" value="18"/>
   </bean>
 
-  <bean id="leicester" class="com.przedwojski.purespring.FootballClub" scope="singleton">
+  <bean id="leicester" class="com.przedwojski.purespring.football.FootballClub" scope="singleton">
     <property name="name" value="Licester"/>
     <property name="position" value="2"/>
   </bean>
 
 <!--  <bean id="footballService" class="com.przedwojski.purespring.FootballService" init-method="show">-->
-  <bean id="footballService" class="com.przedwojski.purespring.FootballService">
+  <bean id="footballService" class="com.przedwojski.purespring.football.FootballService">
     <property name="clubs">
       <list>
         <ref bean="manchesterUnited"/>
         <ref bean="arsenal"/>
         <!-- Inner bean -->
-        <bean class="com.przedwojski.purespring.FootballClub">
+        <bean class="com.przedwojski.purespring.football.FootballClub">
           <property name="name" value="Manchester City"/>
           <property name="position" value="20"/>
           <property name="description">
@@ -54,15 +54,15 @@
 <!--  <bean id="autowiredFootballService" class="com.przedwojski.purespring.FootballService" init-method="show" autowire="byType">-->
 <!--  </bean>-->
 
-  <bean id="smallBall" class="com.przedwojski.purespring.Ball" autowire-candidate="false">
+  <bean id="smallBall" class="com.przedwojski.purespring.football.Ball" autowire-candidate="false">
     <constructor-arg value="S"/>
   </bean>
 
-  <bean id="mediumBall" class="com.przedwojski.purespring.Ball">
+  <bean id="mediumBall" class="com.przedwojski.purespring.football.Ball">
     <constructor-arg value="M"/>
   </bean>
 
-  <bean id="bigBall" class="com.przedwojski.purespring.Ball" primary="true">
+  <bean id="bigBall" class="com.przedwojski.purespring.football.Ball" primary="true">
     <constructor-arg value="L"/>
   </bean>
 
@@ -76,9 +76,9 @@
 
 <!--  Changing the match to be a prototype -->
 <!--  As expected, match bean is not created - because it's a prototype and it's not requested anywhere. -->
-  <bean id="match" class="com.przedwojski.purespring.Match" autowire="byType" scope="prototype"/>
+  <bean id="match" class="com.przedwojski.purespring.football.Match" autowire="byType" scope="prototype"/>
 
-  <bean id="matchDay" class="com.przedwojski.purespring.MatchDay">
+  <bean id="matchDay" class="com.przedwojski.purespring.football.MatchDay">
     <property name="matches">
       <list>
         <ref bean="match"/> <!-- Now match prototype should be instantiated -->
@@ -87,8 +87,8 @@
     </property>
   </bean>
 
-  <bean class="com.przedwojski.purespring.InstantiationTracingBeanPostProcessor"/>
+  <bean class="com.przedwojski.purespring.football.InstantiationTracingBeanPostProcessor"/>
 
-  <bean class="com.przedwojski.purespring.League"/>
+  <bean class="com.przedwojski.purespring.football.League"/>
 
 </beans>

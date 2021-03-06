@@ -253,3 +253,14 @@ public @interface Service {
 You can also combine meta-annotations to create “composed annotations”. For example, the `@RestController` 
 annotation from Spring MVC is composed of `@Controller` and `@ResponseBody`.
 
+### 1.10.3. Automatically Detecting Classes and Registering Bean Definitions
+
+Spring can automatically detect stereotyped classes (e.g. `@Service`) and register corresponding `BeanDefinition` 
+instances with the `ApplicationContext`.
+
+**I added `spring-movies-config.xml` and wired it up in `web.xml`. Inside `spring-movies-config.xml` I had to enable
+component scanning for the com.przedwojski.purespring.movies package. I wanted to (but couldn't) do it so
+the configuration would be in Java in AppConfig, but Spring wasn't able to find it.**
+
+Probably I'd have to register the new context like [this](https://www.baeldung.com/spring-web-contexts#root-servlet3-java).
+
